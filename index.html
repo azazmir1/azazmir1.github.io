@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Azaz Mir — Edge AI &amp; Vision-Language Models</title>
+<meta name="description" content="MS Computer Science (AI) at UT Arlington. Research on vision-language model inference on edge hardware, LLM security, and graph-based supply-chain threat detection.">
+<meta property="og:title" content="Azaz Mir — Edge AI &amp; Vision-Language Models">
+<meta property="og:description" content="MS Computer Science (AI) at UT Arlington. Profiling vision-language models on edge hardware.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+<style>
+:root{
+  --bg:#fbfbfa; --surface:#ffffff; --border:#e4e2dd; --border-soft:#eeece7;
+  --text:#1a1a18; --muted:#5f5d57; --faint:#8a8780;
+  --accent:#0b5d51; --accent-soft:#e6f0ee; --accent-text:#0b5d51;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --maxw:860px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#111312; --surface:#181b1a; --border:#2a2e2c; --border-soft:#212523;
+    --text:#e9e8e4; --muted:#a3a39d; --faint:#74736e;
+    --accent:#5fd3bc; --accent-soft:#17302c; --accent-text:#5fd3bc;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111312; --surface:#181b1a; --border:#2a2e2c; --border-soft:#212523;
+  --text:#e9e8e4; --muted:#a3a39d; --faint:#74736e;
+  --accent:#5fd3bc; --accent-soft:#17302c; --accent-text:#5fd3bc;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:var(--sans); font-size:16px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--accent-text); text-decoration:none; border-bottom:1px solid transparent; transition:border-color .15s}
+a:hover{border-bottom-color:currentColor}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px}
+
+/* ---------- header ---------- */
+header{padding:72px 0 44px; border-bottom:1px solid var(--border)}
+.name{font-family:var(--serif); font-size:clamp(2.4rem,7vw,3.4rem); line-height:1.05; letter-spacing:-.02em; margin:0 0 10px; font-weight:600}
+.tagline{font-size:1.1rem; color:var(--muted); margin:0 0 24px; max-width:60ch}
+.tagline strong{color:var(--text); font-weight:600}
+.meta{display:flex; flex-wrap:wrap; gap:8px 18px; font-size:.9rem; color:var(--faint); font-family:var(--mono)}
+.meta a{color:var(--muted)}
+.meta a:hover{color:var(--accent-text)}
+
+/* ---------- sections ---------- */
+section{padding:44px 0; border-bottom:1px solid var(--border-soft)}
+section:last-of-type{border-bottom:none}
+h2{
+  font-size:.78rem; text-transform:uppercase; letter-spacing:.14em;
+  color:var(--faint); font-weight:600; margin:0 0 22px; font-family:var(--mono);
+}
+h3{font-size:1.02rem; margin:0; font-weight:650; letter-spacing:-.01em}
+p{margin:0 0 14px}
+p:last-child{margin-bottom:0}
+
+/* ---------- entries ---------- */
+.entry{margin-bottom:30px}
+.entry:last-child{margin-bottom:0}
+.entry-head{display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap; margin-bottom:3px}
+.where{color:var(--muted); font-size:.93rem; font-style:italic}
+.when{color:var(--faint); font-size:.82rem; font-family:var(--mono); white-space:nowrap}
+ul{margin:10px 0 0; padding-left:18px}
+li{margin-bottom:7px; color:var(--muted)}
+li:last-child{margin-bottom:0}
+li strong{color:var(--text); font-weight:600}
+
+/* ---------- publications ---------- */
+.pub{padding:18px 20px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin-bottom:12px}
+.pub:last-child{margin-bottom:0}
+.pub-title{font-weight:600; display:block; margin-bottom:6px; line-height:1.4}
+.pub-authors{font-size:.88rem; color:var(--muted); margin-bottom:6px}
+.pub-authors .me{color:var(--text); font-weight:650}
+.badge{
+  display:inline-block; font-family:var(--mono); font-size:.72rem; letter-spacing:.04em;
+  padding:3px 9px; border-radius:999px; background:var(--accent-soft); color:var(--accent-text);
+  border:1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+}
+
+/* ---------- projects ---------- */
+.proj{padding-left:16px; border-left:2px solid var(--border); margin-bottom:28px}
+.proj:last-child{margin-bottom:0}
+.proj-title{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap}
+.stack{font-family:var(--mono); font-size:.76rem; color:var(--faint)}
+.metrics{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
+.metric{
+  font-family:var(--mono); font-size:.76rem; padding:4px 10px; border-radius:6px;
+  background:var(--accent-soft); color:var(--accent-text); white-space:nowrap;
+}
+
+/* ---------- skills ---------- */
+.skills{display:grid; gap:14px}
+.skill-row{display:grid; grid-template-columns:160px 1fr; gap:14px; align-items:start}
+.skill-label{font-family:var(--mono); font-size:.78rem; color:var(--faint); padding-top:3px; text-transform:uppercase; letter-spacing:.06em}
+.skill-val{color:var(--muted); font-size:.93rem}
+@media (max-width:620px){
+  .skill-row{grid-template-columns:1fr; gap:3px}
+  .skill-label{padding-top:0}
+}
+
+/* ---------- footer ---------- */
+footer{padding:40px 0 60px; color:var(--faint); font-size:.85rem; font-family:var(--mono); display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; border-top:1px solid var(--border)}
+
+/* ---------- theme toggle ---------- */
+#theme{
+  position:fixed; top:16px; right:16px; z-index:10;
+  background:var(--surface); color:var(--muted); border:1px solid var(--border);
+  width:36px; height:36px; border-radius:50%; cursor:pointer; font-size:14px; line-height:1;
+  display:flex; align-items:center; justify-content:center; transition:color .15s,border-color .15s;
+}
+#theme:hover{color:var(--accent-text); border-color:var(--accent)}
+@media print{
+  #theme{display:none}
+  body{background:#fff; color:#000}
+  section{page-break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<button id="theme" aria-label="Toggle colour theme" title="Toggle theme">◐</button>
+
+<div class="wrap">
+
+<header>
+  <h1 class="name">Azaz Mir</h1>
+  <p class="tagline">MS Computer Science (AI) at <strong>UT Arlington</strong>. I work on making
+  vision-language models actually run on edge hardware — and on finding out where they break.</p>
+  <div class="meta">
+    <a href="mailto:axm6255@mavs.uta.edu">axm6255@mavs.uta.edu</a>
+    <a href="https://github.com/azazmir1">github.com/azazmir1</a>
+    <a href="https://linkedin.com/in/azazmir">linkedin.com/in/azazmir</a>
+    <span>Arlington, TX</span>
+  </div>
+</header>
+
+<section>
+  <h2>About</h2>
+  <p>I am a master's student in Computer Science at the University of Texas at Arlington, specializing
+  in AI and graduating in May 2027. Before that I spent two years as a data scientist building
+  production LLM systems for enterprise clients across retail, banking, and healthcare.</p>
+  <p>My research asks a practical question: given a compact vision-language model and a constrained
+  device, will it run — and if not, which resource gives out first? That has meant profiling five
+  VLM families across four platforms, building memory models that predict out-of-memory boundaries
+  before you hit them, and instrumenting inference pipelines down to the individual pipeline stage.
+  I also work on LLM security, from prompt-injection red-teaming to graph-based detection of
+  malicious packages in the Python supply chain.</p>
+</section>
+
+<section>
+  <h2>Publications</h2>
+
+  <div class="pub">
+    <span class="pub-title">Characterizing Multi-Turn Vision-Language Model Inference on Resource-Constrained Edge Hardware</span>
+    <div class="pub-authors"><span class="me">Azaz Mir</span> et al.</div>
+    <span class="badge">Under review · ACM SIGMETRICS '27</span>
+  </div>
+
+  <div class="pub">
+    <span class="pub-title">Multi-Stage Static Analysis of Software Supply Chain Attacks using Graph Contextual Ranker and API Call Sequence Matcher</span>
+    <div class="pub-authors">S. Shettiwar, T. Simanjuntak, <span class="me">Azaz Mir</span></div>
+    <span class="badge">University of Texas at Arlington · 2026</span>
+  </div>
+</section>
+
+<section>
+  <h2>Experience</h2>
+
+  <div class="entry">
+    <div class="entry-head">
+      <h3>Graduate Research Assistant</h3>
+      <span class="when">2026 — Present</span>
+    </div>
+    <div class="where">University of Texas at Arlington, College of Education</div>
+    <ul>
+      <li>Data analysis and reporting for the Office of the Dean, supporting institutional research and administrative decision-making.</li>
+      <li>Analysis pipelines and visualizations in Python that turn administrative and academic datasets into actionable summaries.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <h3>Graduate Teaching Assistant</h3>
+      <span class="when">Jan — May 2026</span>
+    </div>
+    <div class="where">University of Texas at Arlington, CSE 1310: Introduction to Computers and Programming</div>
+    <ul>
+      <li>Supported a core first-year C programming course covering control structures, data structures, file I/O, and modular design.</li>
+      <li>Graded the full assessment stack — exams, departmental benchmark quizzes, weekly quizzes, coding homework, and final projects — and proctored in-class exams.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <h3>Graduate Research Assistant</h3>
+      <span class="when">2025 — 2026</span>
+    </div>
+    <div class="where">University of Texas at Arlington, Edge AI &amp; LLM Security</div>
+    <ul>
+      <li>Deployed and profiled vision-language models on Jetson Orin Nano 8GB, Jetson AGX Orin, and Raspberry Pi 5 with custom component-level timing instrumentation.</li>
+      <li>Resolved JetPack 6 incompatibilities, CUDA memory constraints, and containerization failures by modifying Jetson Containers — unblocking models that previously would not load.</li>
+      <li>Built a framework evaluating prompt injection and jailbreak attacks on LLMs and SLMs across multiple application domains.</li>
+      <li>Developed protocol-agnostic LLM middleware for IoT edge systems with MQTT↔CoAP translation and multi-agent orchestration.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <h3>Data Scientist</h3>
+      <span class="when">Jul 2023 — Jun 2025</span>
+    </div>
+    <div class="where">Royal Cyber Inc. · Remote</div>
+    <ul>
+      <li>Built end-to-end LLM applications — RAG pipelines, conversational chatbots, document intelligence — for enterprise clients across retail, banking, and healthcare.</li>
+      <li><strong>Cut time-to-production by 40%</strong> with automated MLOps pipelines featuring continuous monitoring, retraining, versioning, and A/B testing.</li>
+      <li>Engineered Azure data infrastructure (Data Factory, ADLS, Synapse) and Spark/Databricks workflows using Medallion Architecture.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <h3>AI Research Assistant</h3>
+      <span class="when">2023 — 2024</span>
+    </div>
+    <div class="where">AI Lab, National University of Sciences &amp; Technology · Islamabad</div>
+    <ul>
+      <li>Led an automated legal contract generation system (NDAs) using LLMs with automatic insertion of relevant laws, articles, and clauses — <strong>reducing preparation time by 60%</strong>.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>Selected Projects</h2>
+
+  <div class="proj">
+    <div class="proj-title">
+      <h3>Component-Level Profiling of Vision-Language Models</h3>
+      <span class="stack">PyTorch · Jetson · TensorRT</span>
+    </div>
+    <ul>
+      <li>Profiled five compact VLMs (SmolVLM, LFM2-VL, InternVL2.5, FastVLM, LLaVA-OV) across RTX A6000, Jetson AGX Orin, Jetson Orin Nano, and Raspberry Pi 5.</li>
+      <li>Showed per-turn cost is governed by cumulative context length rather than turn count, and that <strong>parameter count fails to predict latency</strong>.</li>
+      <li>Built an empirical memory model decomposing peak allocation into baseline, KV, token-dependent, nonlinear, and image components.</li>
+    </ul>
+    <div class="metrics">
+      <span class="metric">4.3–4.7× latency A6000→Orin Nano</span>
+      <span class="metric">up to 56× on CPU-only RPi5</span>
+      <span class="metric">0.8% MAPE in-device</span>
+      <span class="metric">40 → 100+ stable queries</span>
+    </div>
+  </div>
+
+  <div class="proj">
+    <div class="proj-title">
+      <h3>Malicious PyPI Package Detection via Graph ML</h3>
+      <span class="stack">PyTorch Geometric · igraph · scikit-learn</span>
+    </div>
+    <ul>
+      <li>Two-stage pipeline detecting zero-day malicious packages, targeting the blind spot where signature scanners (OSV, pip-audit, Snyk, Dependabot) have <strong>zero recall</strong>.</li>
+      <li>Stage 1 ranks anomalies with Isolation Forest over a 14-dimensional metadata + dependency-graph feature vector with Leiden community detection.</li>
+      <li>Stage 2 parses source into API-call and data-flow graphs via Python AST, classified by a GNN to confirm download-decode-execute and unsafe deserialization behavior.</li>
+      <li>Deployed a live monitor scoring newly published PyPI releases in real time.</li>
+    </ul>
+    <div class="metrics">
+      <span class="metric">99.96% precision</span>
+      <span class="metric">94.4% recall</span>
+      <span class="metric">0.99998 AUROC</span>
+      <span class="metric">0.023% FPR</span>
+    </div>
+  </div>
+
+  <div class="proj">
+    <div class="proj-title">
+      <h3>LLM Jailbreak &amp; Prompt Injection Red-Teaming</h3>
+      <span class="stack">Python · PyTorch · Hugging Face</span>
+    </div>
+    <ul>
+      <li>Systematic evaluation framework for prompt injection and jailbreak attacks across LLMs and SLMs, producing comparative robustness rankings to guide model selection for agentic deployments.</li>
+    </ul>
+  </div>
+
+  <div class="proj">
+    <div class="proj-title">
+      <h3>Multi-Agent IoT Gateway</h3>
+      <span class="stack">Python · MQTT · CoAP · CrewAI</span>
+    </div>
+    <ul>
+      <li>Middleware translating MQTT to CoAP with a neutral message envelope, rules-based mapping (topic→URI, QoS→CON/NON, Content-Format inference), and optional LLM-based schema transformation.</li>
+    </ul>
+  </div>
+
+  <p style="margin-top:28px"><a href="https://github.com/azazmir1">More on GitHub →</a> <p style="margin-top:28px"><a href="https://github.com/azazmir1">More on GitHub →</a></p>nbsp;·<p style="margin-top:28px"><a href="https://github.com/azazmir1">More on GitHub →</a></p>nbsp; <a href="AzazMir_Resume.pdf">Download résumé (PDF) →</a></p>
+</section>
+
+<section>
+  <h2>Technical Skills</h2>
+  <div class="skills">
+    <div class="skill-row"><div class="skill-label">Languages</div><div class="skill-val">Python, SQL, PySpark, C, C++, JavaScript, Java</div></div>
+    <div class="skill-row"><div class="skill-label">Multimodal AI</div><div class="skill-val">Vision-Language Models (SmolVLM, FastVLM, InternVL, LLaVA-OV, LFM2-VL, Florence-2), Vision Encoders (ViT), Cross-Modal Fusion</div></div>
+    <div class="skill-row"><div class="skill-label">ML / GenAI</div><div class="skill-val">PyTorch, TensorFlow, scikit-learn, Hugging Face, RAG, FAISS, LangChain, ChromaDB, Llama-2/3</div></div>
+    <div class="skill-row"><div class="skill-label">Graph ML &amp; Security</div><div class="skill-val">Graph Neural Networks (PyTorch Geometric), igraph, Leiden/Louvain, Isolation Forest, Python AST analysis</div></div>
+    <div class="skill-row"><div class="skill-label">Edge AI</div><div class="skill-val">Jetson AGX Orin / Orin Nano, Raspberry Pi 5, TensorRT, ONNX, Quantization (INT4, AWQ)</div></div>
+    <div class="skill-row"><div class="skill-label">Agentic AI</div><div class="skill-val">CrewAI, AutoGen, Multi-Agent Orchestration, Tool Use, Planning</div></div>
+    <div class="skill-row"><div class="skill-label">Data &amp; Cloud</div><div class="skill-val">Apache Spark, Databricks, Delta Lake, Azure (Data Factory, ADLS, Synapse), AWS</div></div>
+    <div class="skill-row"><div class="skill-label">Tools</div><div class="skill-val">Docker, Jetson Containers, Git, FastAPI, Streamlit, Tableau, ETL Pipelines</div></div>
+  </div>
+</section>
+
+<section>
+  <h2>Education</h2>
+  <div class="entry">
+    <div class="entry-head">
+      <h3>University of Texas at Arlington</h3>
+      <span class="when">Sep 2025 — May 2027</span>
+    </div>
+    <div class="where">MS, Computer Science — AI Specialization</div>
+  </div>
+  <div class="entry">
+    <div class="entry-head">
+      <h3>National University of Sciences &amp; Technology (NUST)</h3>
+      <span class="when">Sep 2020 — Sep 2024</span>
+    </div>
+    <div class="where">BSc, Software Engineering — CGPA 3.61 / 4.0</div>
+  </div>
+</section>
+
+<section>
+  <h2>Certifications &amp; Awards</h2>
+  <ul style="padding-left:18px">
+    <li>Databricks Certified Associate Developer for Apache Spark 3.0 (2024)</li>
+    <li>Databricks Academy — Generative AI Fundamentals (2024)</li>
+    <li>1st Place, Vasl-e-Tasawur Ideathon, FAST University (2022)</li>
+    <li>1st Place, Scavenger Hunt Competition, NUST (2022)</li>
+    <li>USAID-Funded Merit and Needs-Based Scholarship · AKF-ISP International Scholarship Programme</li>
+  </ul>
+</section>
+
+<footer>
+  <span>Azaz Mir · Arlington, TX</span>
+  <span><a href="mailto:axm6255@mavs.uta.edu">Get in touch →</a></span>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var btn=document.getElementById('theme'), root=document.documentElement;
+  var saved=null;
+  try{saved=localStorage.getItem('theme')}catch(e){}
+  if(saved){root.setAttribute('data-theme',saved)}
+  btn.addEventListener('click',function(){
+    var cur=root.getAttribute('data-theme');
+    if(!cur){
+      cur=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+    }
+    var next=cur==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    try{localStorage.setItem('theme',next)}catch(e){}
+  });
+})();
+</script>
+</body>
+</html>
